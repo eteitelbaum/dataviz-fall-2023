@@ -1,7 +1,11 @@
 ---
 title: "Exercise 1.2"
 format: html
+engine: knitr
 highlight-style: atom-one
+webr:
+  channel-type: 'post-message'
+  packages: ['dplyr', 'readr']
 filters:
   - webr
 execute:
@@ -12,24 +16,20 @@ execute:
 
 ## Code
 
-```{=html}
-<script type="module">
-await globalThis.webR.evalRVoid(`
+```{webr-r}
+#| context: setup
 download.file(
   'https://raw.githubusercontent.com/eteitelbaum/dataviz-summer-2023/main/modules/data/dem_women.csv',
   'dem_women.csv'
 )
 
-webr::install(c("dplyr", "readr"))
-
+# Load packages
 library(dplyr)
 library(readr)
 dem_women <- read_csv("dem_women.csv")
-`)
-</script>	
 ```
 
-```{webr}
+```{webr-r}
 dem_summary <- dem_women |> 
   group_by(region)  |> 
   summarize(
@@ -46,17 +46,16 @@ dem_summary
 ## Questions
 
 1. Try summarizing the data with a [different function](https://dplyr.tidyverse.org/reference/summarise.html#useful-functions) for one or more of the variables. 
-  a. What is the median value of `polyarchy` for The West?
-  b. What is the max value of `gdp_pc` for Eastern Europe?
-  c. What is the standard deviation of `flfp` for Africa?
-  d. What is the interquartile range of `women_rep` for the Middle East?
+    a. What is the median value of `polyarchy` for The West?
+    b. What is the max value of `gdp_pc` for Eastern Europe?
+    c. What is the standard deviation of `flfp` for Africa?
+    d. What is the interquartile range of `women_rep` for the Middle East?
 
 2. Now try grouping by country instead of region. 
-
-  a. What is the median value of `polyarchy` for Sweden?
-  b. What is the max value of `gdp_pc` New Zealand?
-  c. What is the standard deviation of `flfp` for Spain?
-  d. What is the interquartile range of `women_rep` for Germany?
+    a. What is the median value of `polyarchy` for Sweden?
+    b. What is the max value of `gdp_pc` New Zealand?
+    c. What is the standard deviation of `flfp` for Spain?
+    d. What is the interquartile range of `women_rep` for Germany?
 
 3. Sort countries in descending order based on the mean value of `gdp_pc` (instead of the median value of `polyarchy`). Which country ranks first based on this sorting?
 
